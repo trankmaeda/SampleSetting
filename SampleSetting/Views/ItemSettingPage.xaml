@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="SampleSetting.Views.MainPage"
+    x:Class="SampleSetting.Views.ItemSettingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +15,6 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
-            <Button Content="Create new item setting" Click="{x:Bind ViewModel.NavigateToItemSettingPage}"/>
         </Grid>
     </Grid>
 </Page>
