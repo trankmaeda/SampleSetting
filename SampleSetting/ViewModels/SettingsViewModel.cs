@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Prism.Commands;
@@ -55,8 +56,49 @@ namespace SampleSetting.ViewModels
             }
         }
 
+        private string _serverIp;
+        public string ServerIp
+        {
+            get => _serverIp;
+            set
+            {
+                if (SetProperty(ref _serverIp, value))
+                {
+                    AccessCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        //TODO: Remove this if it's not needed to control button accessibility.
+        private bool _accessInProgress;
+        public bool AccessInProgress
+        {
+            get => _accessInProgress;
+            set
+            {
+                if (SetProperty(ref _accessInProgress, value))
+                {
+                    AccessCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public DelegateCommand AccessCommand { get; private set; }
+        public Func<bool> CanTryAccess => () => !string.IsNullOrEmpty(ServerIp) && !AccessInProgress;
+        
+
         public SettingsViewModel()
         {
+            AccessCommand = new DelegateCommand(async () => await AccessAsync(), CanTryAccess);
+        }
+
+        private async Task AccessAsync()
+        {
+            AccessInProgress = true;
+            await Task.Delay(1000);
+            AccessInProgress = false;
+            //TODO: Implement page navigation on success.
+            return;
         }
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
