@@ -38,7 +38,7 @@ namespace SampleSetting
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            await LaunchApplicationAsync(PageTokens.MainPage, null);
+            await LaunchApplicationAsync(PageTokens.SettingsPage, null);
         }
 
         private async Task LaunchApplicationAsync(string page, object launchParam)
