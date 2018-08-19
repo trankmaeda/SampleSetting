@@ -18,6 +18,8 @@ namespace SampleSetting.ViewModels
     // TODO WTS: Add other settings as necessary. For help see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/pages/settings.md
     public class SettingsViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
+
         private ElementTheme _elementTheme = ThemeSelectorService.Theme;
 
         public ElementTheme ElementTheme
@@ -87,8 +89,9 @@ namespace SampleSetting.ViewModels
         public Func<bool> CanTryAccess => () => !string.IsNullOrEmpty(ServerIp) && !AccessInProgress;
         
 
-        public SettingsViewModel()
+        public SettingsViewModel(INavigationService navigationServiceInstance)
         {
+            _navigationService = navigationServiceInstance;
             AccessCommand = new DelegateCommand(async () => await AccessAsync(), CanTryAccess);
         }
 
@@ -97,8 +100,8 @@ namespace SampleSetting.ViewModels
             AccessInProgress = true;
             await Task.Delay(1000);
             AccessInProgress = false;
-            //TODO: Implement page navigation on success.
-            return;
+
+            _navigationService.Navigate(PageTokens.MainPage, null);
         }
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
