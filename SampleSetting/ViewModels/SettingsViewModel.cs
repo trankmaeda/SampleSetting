@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -11,6 +12,7 @@ using SampleSetting.Helpers;
 using SampleSetting.Services;
 
 using Windows.ApplicationModel;
+using Windows.Storage;
 using Windows.UI.Xaml;
 
 namespace SampleSetting.ViewModels
@@ -87,7 +89,6 @@ namespace SampleSetting.ViewModels
 
         public DelegateCommand AccessCommand { get; private set; }
         public Func<bool> CanTryAccess => () => !string.IsNullOrEmpty(ServerIp) && !AccessInProgress;
-        
 
         public SettingsViewModel(INavigationService navigationServiceInstance)
         {
@@ -101,12 +102,23 @@ namespace SampleSetting.ViewModels
             await Task.Delay(1000);
             AccessInProgress = false;
 
+            ApplicationDataContainer container = ApplicationData.Current.LocalSettings;
+            container.Values[nameof(ServerIp)] = ServerIp;
             _navigationService.Navigate(PageTokens.MainPage, null);
         }
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
+
+            ApplicationDataContainer container = ApplicationData.Current.LocalSettings;
+            var ip = container.Values[nameof(ServerIp)];
+            if (ip != null)
+            {
+                ServerIp = ip.ToString();
+                Debug.WriteLine($"Successed to get server ip[{ServerIp}] from cache.");
+                AccessCommand.Execute();
+            }
 
             VersionDescription = GetVersionDescription();
         }
