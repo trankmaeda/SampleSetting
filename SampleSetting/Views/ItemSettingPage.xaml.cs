@@ -1,6 +1,4 @@
-﻿using System;
-
-using SampleSetting.ViewModels;
+﻿using SampleSetting.ViewModels;
 
 using Windows.UI.Xaml.Controls;
 
