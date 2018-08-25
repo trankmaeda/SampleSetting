@@ -6,9 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
-    xmlns:models="using:SampleSetting.Models"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     mc:Ignorable="d">
     <Grid
@@ -18,41 +15,6 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
-            <StackPanel>
-                <TextBlock Text="Prefecture selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
-                <ListView ItemsSource="{x:Bind ViewModel.Prefectures, Mode=OneWay}" Margin="10,10,10,0">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Prefecture">
-                            <Grid Padding="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="ID" Margin="0,0,0,0"/>
-                                <TextBlock Text="{x:Bind ID}" Margin="10,0,0,0" Grid.Column="1"/>
-                                <TextBlock Text="Name" Margin="0,0,0,0" Grid.Row="1"/>
-                                <TextBlock Text="{x:Bind Name}" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
-                                <TextBlock Text="Start date" Margin="0,0,0,0" Grid.Row="2"/>
-                                <TextBlock Text="{x:Bind StartDate}" Margin="10,0,0,0" Grid.Row="2" Grid.Column="1"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior>
-                            <core:InvokeCommandAction Command=""
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </ListView>
-                <TextBlock Text="City selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
-
-            </StackPanel>
         </Grid>
     </Grid>
 </Page>
