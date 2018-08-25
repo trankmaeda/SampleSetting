@@ -20,33 +20,32 @@
                 Place your content here.-->
             <StackPanel>
                 <TextBlock Text="Prefecture selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
-                <ListView
+                <GridView
                     x:Name="PrefectureList"
                     ItemsSource="{x:Bind ViewModel.Prefectures, Mode=OneWay}"
+                    ItemContainerStyle="{StaticResource GridViewItemStyle}"
                     Margin="10,10,10,0">
-                    <ListView.ItemTemplate>
+                    <GridView.ItemTemplate>
                         <DataTemplate x:DataType="models:Prefecture">
-                            <Grid Padding="5">
+                            <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="ID" Margin="0,0,0,0"/>
+                                <TextBlock Text="ID"/>
                                 <TextBlock Text="{x:Bind ID}" Margin="10,0,0,0" Grid.Column="1"/>
-                                <TextBlock Text="Name" Margin="0,0,0,0" Grid.Row="1"/>
+                                <TextBlock Text="Name" Grid.Row="1"/>
                                 <TextBlock Text="{x:Bind Name}" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
-                                <TextBlock Text="Start date" Margin="0,0,0,0" Grid.Row="2"/>
+                                <TextBlock Text="Start date" Grid.Row="2"/>
                                 <TextBlock Text="{x:Bind StartDate}" Margin="10,0,0,0" Grid.Row="2" Grid.Column="1"/>
                             </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
+                    </GridView.ItemTemplate>
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="SelectionChanged"
                                                    SourceObject="{x:Bind PrefectureList}">
@@ -54,7 +53,7 @@
                                                       CommandParameter="{Binding SelectedItem, ElementName=PrefectureList}"/>
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
-                </ListView>
+                </GridView>
                 <TextBlock Text="City selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
 
             </StackPanel>
