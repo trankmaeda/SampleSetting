@@ -12,6 +12,7 @@ namespace SampleSetting.ViewModels
     public class ItemSettingViewModel : ViewModelBase
     {
         public ObservableCollection<Prefecture> Prefectures { get; private set; }
+        public ObservableCollection<City> Cities { get; private set; } = new ObservableCollection<City>();
 
         public ItemSettingViewModel()
         {
@@ -28,11 +29,35 @@ namespace SampleSetting.ViewModels
                     _selectPrefectureCommand = new DelegateCommand<Prefecture>(
                         (prefecture) =>
                         {
-                            Debug.WriteLine($"ID[{prefecture.ID}] Name[{prefecture.Name}]");
+                            Debug.WriteLine($"Prefecture: ID[{prefecture.ID}] Name[{prefecture.Name}]");
+                            Cities.Clear();
+                            foreach (var city in prefecture.Cities)
+                            {
+                                Cities.Add(city);
+                            }
                         });
                 }
 
                 return _selectPrefectureCommand;
+            }
+        }
+
+        private DelegateCommand<City> _selectCityCommand;
+        public DelegateCommand<City> SelectCityCommand
+        {
+            get
+            {
+                if (_selectCityCommand == null)
+                {
+                    _selectCityCommand = new DelegateCommand<City>(
+                        (city) =>
+                        {
+                            if (city == null) { return; }
+                            Debug.WriteLine($"City: ID[{city.ID}] Name[{city.Name}] Mayor[{city.Mayor}]");
+                        });
+                }
+
+                return _selectCityCommand;
             }
         }
 
