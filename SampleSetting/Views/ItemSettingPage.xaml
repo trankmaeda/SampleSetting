@@ -54,7 +54,7 @@
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </GridView>
-                
+
                 <TextBlock Text="City selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
                 <GridView
                     x:Name="CityList"
@@ -87,6 +87,40 @@
                                                    SourceObject="{x:Bind CityList}">
                             <core:InvokeCommandAction Command="{x:Bind ViewModel.SelectCityCommand}"
                                                       CommandParameter="{Binding SelectedItem, ElementName=CityList}"/>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </GridView>
+
+                <TextBlock Text="SchoolDistrict selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
+                <GridView
+                    x:Name="SchoolDistrictList"
+                    ItemsSource="{x:Bind ViewModel.SchoolDistricts, Mode=OneWay}"
+                    ItemContainerStyle="{StaticResource GridViewUnSelectableItemStyle}"
+                    SelectionMode="None"
+                    Margin="10,10,10,0">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SchoolDistrict">
+                            <Grid Height="100" Width="300">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="ID"/>
+                                <TextBlock Text="{x:Bind ID}" TextWrapping="Wrap" Margin="10,0,0,0" Grid.Column="1"/>
+                                <TextBlock Text="Name" Grid.Row="1"/>
+                                <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="SelectionChanged"
+                                                   SourceObject="{x:Bind SchoolDistrictList}">
+                            <core:InvokeCommandAction Command="{x:Bind ViewModel.SelectSchoolDistrictCommand}"
+                                                      CommandParameter="{Binding SelectedItem, ElementName=SchoolDistrictList}"/>
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </GridView>

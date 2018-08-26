@@ -9,5 +9,6 @@ namespace SampleSetting.Models
         public string Name { get; set; }
         public List<City> Cities { get; set; }
         public DateTime StartDate { get; set; }
+        public int SchoolDistrictId { get; set; }
     }
 }
