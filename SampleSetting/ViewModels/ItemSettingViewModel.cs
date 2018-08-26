@@ -45,6 +45,15 @@ namespace SampleSetting.ViewModels
                             {
                                 if (schoolDistrict.ID == prefecture.SchoolDistrictId)
                                 {
+                                    foreach (var school in schoolDistrict.Schools)
+                                    {
+                                        school.TypeChoices = new List<string>
+                                        {
+                                            "Default",
+                                            "Night",
+                                            "Other",
+                                        };
+                                    }
                                     SchoolDistricts.Add(schoolDistrict);
                                 }
                             }
@@ -71,6 +80,25 @@ namespace SampleSetting.ViewModels
                 }
 
                 return _selectCityCommand;
+            }
+        }
+
+        private DelegateCommand<string> _selectSchoolTypeCommand;
+        public DelegateCommand<string> SelectSchoolTypeCommand
+        {
+            get
+            {
+                if (_selectSchoolTypeCommand == null)
+                {
+                    _selectSchoolTypeCommand = new DelegateCommand<string>(
+                        (schoolType) =>
+                        {
+                            if (schoolType == null) { return; }
+                            Debug.WriteLine($"SchoolType: Type[{schoolType}]");
+                        });
+                }
+
+                return _selectSchoolTypeCommand;
             }
         }
 
