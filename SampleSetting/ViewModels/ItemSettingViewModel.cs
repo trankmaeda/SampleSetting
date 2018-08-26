@@ -6,17 +6,13 @@ using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using SampleSetting.Models;
-using static SampleSetting.Models.School;
 
 namespace SampleSetting.ViewModels
 {
     public class ItemSettingViewModel : ViewModelBase
     {
         public ObservableCollection<Prefecture> Prefectures { get; private set; }
-        public ObservableCollection<City> Cities { get; } = new ObservableCollection<City>();
-        public ObservableCollection<SchoolDistrict> SchoolDistricts { get; } = new ObservableCollection<SchoolDistrict>();
-        //TODO: Move this to model class in real use.
-        public List<SchoolDistrict> AllSchoolDistricts { get; private set; }
+        public ObservableCollection<City> Cities { get; private set; } = new ObservableCollection<City>();
 
         public ItemSettingViewModel()
         {
@@ -38,15 +34,6 @@ namespace SampleSetting.ViewModels
                             foreach (var city in prefecture.Cities)
                             {
                                 Cities.Add(city);
-                            }
-                            var schoolDistrictID = prefecture.SchoolDistrictId;
-                            SchoolDistricts.Clear();
-                            foreach (var schoolDistrict in AllSchoolDistricts)
-                            {
-                                if (schoolDistrict.ID == prefecture.SchoolDistrictId)
-                                {
-                                    SchoolDistricts.Add(schoolDistrict);
-                                }
                             }
                         });
                 }
@@ -74,25 +61,6 @@ namespace SampleSetting.ViewModels
             }
         }
 
-        private DelegateCommand<SchoolDistrict> _selectSchoolDistrictCommand;
-        public DelegateCommand<SchoolDistrict> SelectSchoolDistrictCommand
-        {
-            get
-            {
-                if (_selectSchoolDistrictCommand == null)
-                {
-                    _selectSchoolDistrictCommand = new DelegateCommand<SchoolDistrict>(
-                        (schoolDistrict) =>
-                        {
-                            if (schoolDistrict == null) { return; }
-                            Debug.WriteLine($"SchoolDistrict: ID[{schoolDistrict.ID}] Name[{schoolDistrict.Name}]");
-                        });
-                }
-
-                return _selectSchoolDistrictCommand;
-            }
-        }
-
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
@@ -108,7 +76,6 @@ namespace SampleSetting.ViewModels
                     ID = 1,
                     Name = "Aomori",
                     StartDate = new DateTime(1945, 8, 15),
-                    SchoolDistrictId = 1,
                     Cities = new List<City>
                     {
                         new City
@@ -148,7 +115,6 @@ namespace SampleSetting.ViewModels
                     ID = 2,
                     Name = "Akita",
                     StartDate = new DateTime(1977, 7, 10),
-                    SchoolDistrictId = 2,
                     Cities = new List<City>
                     {
                         new City
@@ -205,73 +171,6 @@ namespace SampleSetting.ViewModels
                     },
                 },
             };
-
-            AllSchoolDistricts = new List<SchoolDistrict>{
-                new SchoolDistrict
-                {
-                    ID = 1,
-                    Name = "学区1",
-                    Schools = new List<School>
-                    {
-                        new School
-                        {
-                            Name = "第1高校",
-                            Size = BuildingSize.Default,
-                        },
-                        new School
-                        {
-                            Name = "大高校",
-                            Size = BuildingSize.Big,
-                        },
-                        new School
-                        {
-                            Name = "小高校",
-                            Size = BuildingSize.Small,
-                        },
-                        new School
-                        {
-                            Name = "通常高校",
-                        },
-                    }
-                },
-                new SchoolDistrict
-                {
-                    ID = 2,
-                    Name = "学区2",
-                    Schools = new List<School>
-                    {
-                        new School
-                        {
-                            Name = "第2高校",
-                            Size = BuildingSize.Default,
-                        },
-                        new School
-                        {
-                            Name = "第22高校",
-                            Size = BuildingSize.Default
-                        },
-                        new School
-                        {
-                            Name = "巨大高校",
-                            Size = BuildingSize.Big,
-                        },
-                        new School
-                        {
-                            Name = "巨大高校2",
-                            Size = BuildingSize.Big,
-                        },
-                        new School
-                        {
-                            Name = "巨大高校3",
-                            Size = BuildingSize.Big,
-                        },
-                    }
-                }
-            };
-            foreach (var schoolDistrict in AllSchoolDistricts)
-            {
-                SchoolDistricts.Add(schoolDistrict);
-            }
         }
     }
 }

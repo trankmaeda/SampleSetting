@@ -123,8 +123,6 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Prefecture.cs" />
     <Compile Include="Models\SampleOrder.cs" />
-    <Compile Include="Models\School.cs" />
-    <Compile Include="Models\SchoolDistrict.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Services\ISampleDataService.cs" />
