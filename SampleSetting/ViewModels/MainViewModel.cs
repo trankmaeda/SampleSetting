@@ -15,7 +15,7 @@ namespace SampleSetting.ViewModels
 
         public void NavigateToItemSettingPage()
         {
-            _navigationService.Navigate(PageTokens.ItemSettingPage, null);
+            _navigationService.Navigate(PageTokens.ItemSettingPage, "test message");
         }
     }
 }

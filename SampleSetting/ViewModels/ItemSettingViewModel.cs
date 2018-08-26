@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
+using Prism.Windows.Navigation;
 using SampleSetting.Models;
 
 namespace SampleSetting.ViewModels
@@ -33,6 +34,12 @@ namespace SampleSetting.ViewModels
 
                 return _selectPrefectureCommand;
             }
+        }
+
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            Debug.WriteLine($"Received parameter: {e.Parameter}");
         }
 
         private void InitializeDummyData()
