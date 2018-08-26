@@ -11,113 +11,135 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     mc:Ignorable="d">
-    <Grid
+    <ScrollViewer>
+        <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
+            <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
-            <StackPanel>
-                <TextBlock Text="Prefecture selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
-                <GridView
+                <StackPanel>
+                    <TextBlock Text="Prefecture selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
+                    <GridView
                     x:Name="PrefectureList"
                     ItemsSource="{x:Bind ViewModel.Prefectures, Mode=OneWay}"
                     ItemContainerStyle="{StaticResource GridViewItemStyle}"
                     Margin="10,10,10,0">
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Prefecture">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="ID"/>
-                                <TextBlock Text="{x:Bind ID}" Margin="10,0,0,0" Grid.Column="1"/>
-                                <TextBlock Text="Name" Grid.Row="1"/>
-                                <TextBlock Text="{x:Bind Name}" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
-                                <TextBlock Text="Start date" Grid.Row="2"/>
-                                <TextBlock Text="{x:Bind StartDate}" Margin="10,0,0,0" Grid.Row="2" Grid.Column="1"/>
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="SelectionChanged"
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Prefecture">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="ID"/>
+                                    <TextBlock Text="{x:Bind ID}" Margin="10,0,0,0" Grid.Column="1"/>
+                                    <TextBlock Text="Name" Grid.Row="1"/>
+                                    <TextBlock Text="{x:Bind Name}" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
+                                    <TextBlock Text="Start date" Grid.Row="2"/>
+                                    <TextBlock Text="{x:Bind StartDate}" Margin="10,0,0,0" Grid.Row="2" Grid.Column="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="SelectionChanged"
                                                    SourceObject="{x:Bind PrefectureList}">
-                            <core:InvokeCommandAction Command="{x:Bind ViewModel.SelectPrefectureCommand}"
+                                <core:InvokeCommandAction Command="{x:Bind ViewModel.SelectPrefectureCommand}"
                                                       CommandParameter="{Binding SelectedItem, ElementName=PrefectureList}"/>
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </GridView>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </GridView>
 
-                <TextBlock Text="City selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
-                <GridView
+                    <TextBlock Text="City selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
+                    <GridView
                     x:Name="CityList"
                     ItemsSource="{x:Bind ViewModel.Cities, Mode=OneWay}"
                     ItemContainerStyle="{StaticResource GridViewItemStyle}"
                     Margin="10,10,10,0">
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="models:City">
-                            <Grid Height="60" Width="148">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="ID"/>
-                                <TextBlock Text="{x:Bind ID}" TextWrapping="Wrap" Margin="10,0,0,0" Grid.Column="1"/>
-                                <TextBlock Text="Name" Grid.Row="1"/>
-                                <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
-                                <TextBlock Text="Mayor" Grid.Row="2"/>
-                                <TextBlock Text="{x:Bind Mayor}" TextWrapping="Wrap" Margin="10,0,0,0" Grid.Row="2" Grid.Column="1"/>
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="SelectionChanged"
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:City">
+                                <Grid Height="60" Width="148">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="ID"/>
+                                    <TextBlock Text="{x:Bind ID}" Margin="10,0,0,0" Grid.Column="1"/>
+                                    <TextBlock Text="Name" Grid.Row="1"/>
+                                    <TextBlock Text="{x:Bind Name}" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
+                                    <TextBlock Text="Mayor" Grid.Row="2"/>
+                                    <TextBlock Text="{x:Bind Mayor}" Margin="10,0,0,0" Grid.Row="2" Grid.Column="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="SelectionChanged"
                                                    SourceObject="{x:Bind CityList}">
-                            <core:InvokeCommandAction Command="{x:Bind ViewModel.SelectCityCommand}"
+                                <core:InvokeCommandAction Command="{x:Bind ViewModel.SelectCityCommand}"
                                                       CommandParameter="{Binding SelectedItem, ElementName=CityList}"/>
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </GridView>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </GridView>
 
-                <TextBlock Text="SchoolDistrict selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
-                <GridView
+                    <TextBlock Text="SchoolDistrict selection" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0"/>
+                    <GridView
                     x:Name="SchoolDistrictList"
                     ItemsSource="{x:Bind ViewModel.SchoolDistricts, Mode=OneWay}"
                     ItemContainerStyle="{StaticResource GridViewUnSelectableItemStyle}"
                     SelectionMode="None"
                     Margin="10,10,10,0">
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="models:SchoolDistrict">
-                            <Grid Height="100" Width="300">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="ID"/>
-                                <TextBlock Text="{x:Bind ID}" TextWrapping="Wrap" Margin="10,0,0,0" Grid.Column="1"/>
-                                <TextBlock Text="Name" Grid.Row="1"/>
-                                <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1"/>
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
-            </StackPanel>
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:SchoolDistrict">
+                                <Grid Height="200" Width="300">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{x:Bind Name}"
+                                               Style="{StaticResource ListTitleStyle}"
+                                               Margin="10,0,0,0"/>
+                                    <TextBlock Text="Schools"
+                                               Style="{StaticResource ListSubTitleStyle}"
+                                               Margin="16,0,0,0"
+                                               Grid.Row="1"/>
+                                    <ListView x:Name="SchoolList"
+                                              ItemsSource="{x:Bind Schools, Mode=OneWay}"
+                                              SelectionMode="None"
+                                              Grid.Row="2">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:School">
+                                                <Grid Margin="10,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{x:Bind Name}" Margin="10,0,0,0" Grid.ColumnSpan="2"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </StackPanel>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </Page>
