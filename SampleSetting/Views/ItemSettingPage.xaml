@@ -15,8 +15,8 @@
     <Page.Resources>
         <DataTemplate x:DataType="x:String" x:Key="ChoicesItemContainerStyle">
             <MenuFlyoutItem Text="{x:Bind}"
-                Command="{Binding SelectSchoolTypeCommand, ElementName=Page}"
-                CommandParameter="{Binding}"/>
+                            Command="{Binding ViewModel.SelectSchoolTypeCommand, ElementName=Page}"
+                            CommandParameter="{Binding}"/>
         </DataTemplate>
     </Page.Resources>
     <ScrollViewer>

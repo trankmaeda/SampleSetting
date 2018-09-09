@@ -21,85 +21,53 @@ namespace SampleSetting.ViewModels
         public ItemSettingViewModel()
         {
             InitializeDummyData();
+
+            SelectPrefectureCommand = new DelegateCommand<Prefecture>(p => SelectPrefecture(p));
+            SelectCityCommand = new DelegateCommand<City>(c => SelectCity(c));
+            SelectSchoolTypeCommand = new DelegateCommand<string>(s => SelectSchoolType(s));
         }
 
-        private DelegateCommand<Prefecture> _selectPrefectureCommand;
-        public DelegateCommand<Prefecture> SelectPrefectureCommand
+        public DelegateCommand<Prefecture> SelectPrefectureCommand { get; private set; }
+        private void SelectPrefecture(Prefecture prefecture)
         {
-            get
+            Debug.WriteLine($"Prefecture: ID[{prefecture.ID}] Name[{prefecture.Name}]");
+            Cities.Clear();
+            foreach (var city in prefecture.Cities)
             {
-                if (_selectPrefectureCommand == null)
+                Cities.Add(city);
+            }
+            var schoolDistrictID = prefecture.SchoolDistrictId;
+            SchoolDistricts.Clear();
+            foreach (var schoolDistrict in AllSchoolDistricts)
+            {
+                if (schoolDistrict.ID == prefecture.SchoolDistrictId)
                 {
-                    _selectPrefectureCommand = new DelegateCommand<Prefecture>(
-                        (prefecture) =>
+                    foreach (var school in schoolDistrict.Schools)
+                    {
+                        school.TypeChoices = new List<string>
                         {
-                            Debug.WriteLine($"Prefecture: ID[{prefecture.ID}] Name[{prefecture.Name}]");
-                            Cities.Clear();
-                            foreach (var city in prefecture.Cities)
-                            {
-                                Cities.Add(city);
-                            }
-                            var schoolDistrictID = prefecture.SchoolDistrictId;
-                            SchoolDistricts.Clear();
-                            foreach (var schoolDistrict in AllSchoolDistricts)
-                            {
-                                if (schoolDistrict.ID == prefecture.SchoolDistrictId)
-                                {
-                                    foreach (var school in schoolDistrict.Schools)
-                                    {
-                                        school.TypeChoices = new List<string>
-                                        {
-                                            "Default",
-                                            "Night",
-                                            "Other",
-                                        };
-                                    }
-                                    SchoolDistricts.Add(schoolDistrict);
-                                }
-                            }
-                        });
+                            "Default",
+                            "Night",
+                            "Other",
+                        };
+                    }
+                    SchoolDistricts.Add(schoolDistrict);
                 }
-
-                return _selectPrefectureCommand;
             }
         }
 
-        private DelegateCommand<City> _selectCityCommand;
-        public DelegateCommand<City> SelectCityCommand
+        public DelegateCommand<City> SelectCityCommand { get; private set; }
+        private void SelectCity(City city)
         {
-            get
-            {
-                if (_selectCityCommand == null)
-                {
-                    _selectCityCommand = new DelegateCommand<City>(
-                        (city) =>
-                        {
-                            if (city == null) { return; }
-                            Debug.WriteLine($"City: ID[{city.ID}] Name[{city.Name}] Mayor[{city.Mayor}]");
-                        });
-                }
-
-                return _selectCityCommand;
-            }
+            if (city == null) { return; }
+            Debug.WriteLine($"City: ID[{city.ID}] Name[{city.Name}] Mayor[{city.Mayor}]");
         }
 
-        private DelegateCommand<string> _selectSchoolTypeCommand;
-        public DelegateCommand<string> SelectSchoolTypeCommand
+        public DelegateCommand<string> SelectSchoolTypeCommand { get; private set; }
+        private void SelectSchoolType(string schoolType)
         {
-            get
-            {
-                if (_selectSchoolTypeCommand == null)
-                {
-                    _selectSchoolTypeCommand = new DelegateCommand<string>(
-                        (schoolType) =>
-                        {
-                            if (schoolType == null) { return; }
-                            Debug.WriteLine($"SchoolType: Type[{schoolType}]");
-                        });
-                }
-
-                return _selectSchoolTypeCommand;
-            }
+            if (schoolType == null) { return; }
+            Debug.WriteLine($"SchoolType: Type[{schoolType}]");
         }
 
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)

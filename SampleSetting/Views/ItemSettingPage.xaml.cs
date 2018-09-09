@@ -6,7 +6,7 @@ namespace SampleSetting.Views
 {
     public sealed partial class ItemSettingPage : Page
     {
-        private ItemSettingViewModel ViewModel => DataContext as ItemSettingViewModel;
+        public ItemSettingViewModel ViewModel => DataContext as ItemSettingViewModel;
 
         public ItemSettingPage()
         {
